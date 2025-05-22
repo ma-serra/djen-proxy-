@@ -1,6 +1,6 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+import fetch from 'node-fetch';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   try {
     const { query } = req;
     const searchParams = new URLSearchParams(query).toString();
@@ -19,6 +19,6 @@ module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(response.status).send(data);
   } catch (error) {
-    res.status(500).json({ erro: 'Falha no proxy', detalhe: error.message });
+    res.status(500).json({ erro: 'Erro no proxy', detalhe: error.message });
   }
-};
+}
